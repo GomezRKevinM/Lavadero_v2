@@ -331,7 +331,7 @@ Este es un proyecto académico desarrollado para la Universidad de Cartagena.
 ## 📞 Contacto y Soporte
 
 Para dudas o problemas:
-- 📧 Email: soporte@abc.com
+- 📧 Email: kgomezr2@unicartagena.edu.co
 - 🐛 Issues: GitHub Issues
 - 📖 Docs: Ver carpeta de documentación
 
@@ -339,7 +339,7 @@ Para dudas o problemas:
 
 <div align="center">
 
-**Desarrollado con ❤️ por ABC Ltda. para Universidad de Cartagena**
+**Desarrollado con ❤️ por Kevin Gómez. para Universidad de Cartagena**
 
 [Documentación](COMO_EJECUTAR.md) • [Arquitectura](ARQUITECTURA.md) • [Estado](ESTADO_PROYECTO.md)
 
