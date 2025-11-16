@@ -1,54 +1,53 @@
 package com.lavadero.unicartagena.edu.co.domain.model.personas;
-
-/**
- * Entidad Cliente - Clientes del lavadero.
- * Tabla: clientes
- */
 public class Cliente {
     private Long id;
-    private Long infoPersonalId;
+    private InfoPersonal infoPersonal;
     private Long empresaId;
-
-    // Constructores
     public Cliente() {
     }
-
-    public Cliente(Long id, Long infoPersonalId, Long empresaId) {
+    public Cliente(Long id, InfoPersonal infoPersonal, Long empresaId) {
         this.id = id;
-        this.infoPersonalId = infoPersonalId;
+        this.infoPersonal = infoPersonal;
         this.empresaId = empresaId;
     }
-
-    // Getters y Setters
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Long getInfoPersonalId() {
-        return infoPersonalId;
+    public InfoPersonal getInfoPersonal() {
+        return infoPersonal;
     }
-
-    public void setInfoPersonalId(Long infoPersonalId) {
-        this.infoPersonalId = infoPersonalId;
+    public void setInfoPersonal(InfoPersonal infoPersonal) {
+        this.infoPersonal = infoPersonal;
     }
-
     public Long getEmpresaId() {
         return empresaId;
     }
-
     public void setEmpresaId(Long empresaId) {
         this.empresaId = empresaId;
     }
-
+    public String getNombreCompleto() {
+        return infoPersonal != null ? infoPersonal.getNombreCompleto() : null;
+    }
+    public String getCorreo() {
+        return infoPersonal != null ? infoPersonal.getCorreo() : null;
+    }
+    public String getIdentificacion() {
+        return infoPersonal != null ? infoPersonal.getIdentificacion() : null;
+    }
+    public String getTelefono() {
+        return infoPersonal != null ? infoPersonal.getTelefono() : null;
+    }
+    public boolean puedeRecibirCorreo() {
+        return infoPersonal != null && infoPersonal.tieneCorreoValido();
+    }
     @Override
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
-                ", infoPersonalId=" + infoPersonalId +
+                ", infoPersonal=" + infoPersonal +
                 ", empresaId=" + empresaId +
                 '}';
     }

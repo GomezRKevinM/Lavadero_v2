@@ -1,27 +1,20 @@
 package com.lavadero.unicartagena.edu.co.domain.model.personas;
-
-/**
- * Entidad InfoPersonal - Información personal de personas físicas.
- * Tabla: info_personal
- */
+import com.lavadero.unicartagena.edu.co.domain.model.shared.TipoIdentificacion;
+import java.util.Objects;
 public class InfoPersonal {
-    private Long id;
-    private Long tipoIdentificacionId;
-    private String nombre;
-    private String apellidos;
-    private String identificacion;
-    private String telefono;
-    private String correo;
-    private String direccion;
-
-    // Constructores
-    public InfoPersonal() {
-    }
-
-    public InfoPersonal(Long id, Long tipoIdentificacionId, String nombre, String apellidos,
-                       String identificacion, String telefono, String correo, String direccion) {
-        this.id = id;
-        this.tipoIdentificacionId = tipoIdentificacionId;
+    private final Long infoPersonalId;
+    private final TipoIdentificacion tipoIdentificacion;
+    private final String nombre;
+    private final String apellidos;
+    private final String identificacion;
+    private final String telefono;
+    private final String correo;
+    private final String direccion;
+    public InfoPersonal(Long infoPersonalId, TipoIdentificacion tipoIdentificacion,
+                       String nombre, String apellidos, String identificacion,
+                       String telefono, String correo, String direccion) {
+        this.infoPersonalId = infoPersonalId;
+        this.tipoIdentificacion = tipoIdentificacion;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.identificacion = identificacion;
@@ -29,77 +22,68 @@ public class InfoPersonal {
         this.correo = correo;
         this.direccion = direccion;
     }
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
+    public InfoPersonal(TipoIdentificacion tipoIdentificacion, String nombre,
+                       String apellidos, String identificacion, String telefono,
+                       String correo, String direccion) {
+        this(null, tipoIdentificacion, nombre, apellidos, identificacion,
+             telefono, correo, direccion);
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Long getInfoPersonalId() {
+        return infoPersonalId;
     }
-
-    public Long getTipoIdentificacionId() {
-        return tipoIdentificacionId;
+    public TipoIdentificacion getTipoIdentificacion() {
+        return tipoIdentificacion;
     }
-
-    public void setTipoIdentificacionId(Long tipoIdentificacionId) {
-        this.tipoIdentificacionId = tipoIdentificacionId;
-    }
-
     public String getNombre() {
         return nombre;
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellidos() {
         return apellidos;
     }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
     public String getIdentificacion() {
         return identificacion;
     }
-
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
-    }
-
     public String getTelefono() {
         return telefono;
     }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public String getCorreo() {
         return correo;
     }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
     public String getDireccion() {
         return direccion;
     }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public String getNombreCompleto() {
+        return nombre + " " + apellidos;
     }
-
+    public boolean tieneCorreoValido() {
+        return correo != null && correo.contains("@") && correo.contains(".");
+    }
+    public boolean tieneTelefono() {
+        return telefono != null && !telefono.trim().isEmpty();
+    }
+    public InfoPersonal conId(Long nuevoId) {
+        return new InfoPersonal(nuevoId, tipoIdentificacion, nombre, apellidos,
+                               identificacion, telefono, correo, direccion);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InfoPersonal that = (InfoPersonal) o;
+        return tipoIdentificacion == that.tipoIdentificacion &&
+               Objects.equals(nombre, that.nombre) &&
+               Objects.equals(apellidos, that.apellidos) &&
+               Objects.equals(identificacion, that.identificacion);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(tipoIdentificacion, nombre, apellidos, identificacion);
+    }
     @Override
     public String toString() {
         return "InfoPersonal{" +
-                "id=" + id +
-                ", tipoIdentificacionId=" + tipoIdentificacionId +
+                "infoPersonalId=" + infoPersonalId +
+                ", tipoIdentificacion=" + tipoIdentificacion +
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", identificacion='" + identificacion + '\'' +
