@@ -20,16 +20,25 @@
   - 7 entidades de empleados (Empleado, Contrato, Cargo, etc.)
   - 4 entidades de catálogo (Producto, Servicio, Categoria, Marca)
   - 11 entidades de compras (Cotización, Pedido, Bodega, etc.)
-  - 3 entidades de vehículos (Vehiculo, Marca, Color)
+  - 3 entidades de vehículos (Vehiculo, Marca, Color) **con validaciones**
   - 3 entidades de operaciones (AreaTrabajo, ColaEspera, ColaCliente)
 - ✅ **2 Enums**: Dia (días de la semana), TipoCuenta (tipos de cuenta bancaria)
-- ✅ **Ports OUT definidos**: 1 interfaz de ejemplo (ProductoRepository)
+- ✅ **Ports OUT definidos**: 8 interfaces completas (ProductoRepository, VehiculoRepository, MarcaVehiculoRepository, ColorRepository, EmpleadoRepository, CargoRepository, ContratoRepository, InfoPersonalRepository)
+- ✅ **Ports IN definidos**: 12 interfaces de casos de uso (6 vehículos + 6 empleados: CrearVehiculoUseCase, BuscarVehiculoUseCase, ActualizarVehiculoUseCase, EliminarVehiculoUseCase, GestionarMarcaVehiculoUseCase, GestionarColorUseCase, CrearEmpleadoUseCase, BuscarEmpleadoUseCase, ActualizarEmpleadoUseCase, EliminarEmpleadoUseCase, GestionarCargoUseCase, GestionarContratoUseCase)
 
 ### Capa de Infraestructura (Infrastructure Layer)
 - ✅ **Configuración de Base de Datos**: HikariCP con pool de conexiones
-- ✅ **Adapter JDBC**: 1 implementación completa de ejemplo (JdbcProductoRepository)
+- ✅ **Adapter JDBC**: 8 implementaciones completas (JdbcProductoRepository, JdbcVehiculoRepository, JdbcMarcaVehiculoRepository, JdbcColorRepository, JdbcEmpleadoRepository, JdbcCargoRepository, JdbcContratoRepository, JdbcInfoPersonalRepository)
 - ✅ **Métodos CRUD**: buscarPorId, listarTodos, guardar, eliminar, búsquedas personalizadas
-- ✅ **App.java**: Aplicación de demostración con 7 ejemplos de uso
+- ✅ **Controllers CLI**: VehiculoController (8 opciones), EmpleadoController (9 opciones)
+- ✅ **GUI Swing**: VehiculoFrame + VehiculoDialog + MarcaVehiculoDialog (vehículos), EmpleadoFrame + EmpleadoDialog + CargoDialog (empleados)
+- ✅ **Aplicaciones**: App.java (productos), VehiculoApp.java (CLI vehículos), VehiculoFrame.main() (GUI vehículos), EmpleadoApp.java (CLI empleados), EmpleadoFrame.main() (GUI empleados)
+- ✅ **Configuración**: VehiculoConfig (Singleton vehículos), EmpleadoConfig (Singleton empleados) para inyección de dependencias
+
+### Capa de Aplicación (Application Layer)
+- ✅ **6 Services implementados**: VehiculoService, MarcaVehiculoService, ColorService (vehículos), EmpleadoService, CargoService, ContratoService (empleados)
+- ✅ **Lógica de negocio**: Validación de cliente existente (regla principal de vehículos)
+- ✅ **Validaciones**: Normalización de placas, validación de formato, prevención de duplicados
 
 ### Configuración Maven
 - ✅ **pom.xml actualizado**: 
@@ -37,7 +46,35 @@
   - PostgreSQL JDBC Driver 42.2.23
   - HikariCP 3.4.5 (connection pooling)
   - JUnit 4.11
-- ✅ **Compilación exitosa**: 42 archivos fuente compilan sin errores
+- ✅ **Compilación exitosa**: 114 archivos fuente compilan sin errores (90 base + 24 empleados)
+
+### Módulo de Vehículos (COMPLETO - CLI + GUI)
+- ✅ **Flujo completo implementado**: Siguiendo arquitectura hexagonal
+- ✅ **CRUD completo**: Crear, buscar, actualizar, eliminar vehículos
+- ✅ **Búsquedas especializadas**: Por ID, placa, cliente, marca
+- ✅ **Gestión de marcas**: CRUD completo con prevención de duplicados
+- ✅ **Gestión de colores**: CRUD completo con validación de hexcode
+- ✅ **Validación principal**: Vehículos solo pueden corresponder a un cliente existente
+- ✅ **Interfaz CLI**: Menú interactivo de línea de comandos con 8 opciones
+- ✅ **Interfaz GUI**: Aplicación Swing con tabla, búsquedas, formularios y gestión de marcas
+- ✅ **Scripts de ejecución**: run_vehiculos.bat/sh (CLI), run_vehiculos_gui.bat/sh (GUI)
+- ✅ **Documentación completa**: FLUJO_VEHICULOS.md, RESUMEN_VEHICULOS.md, DIAGRAMA_FLUJO_VEHICULOS.md
+
+### Módulo de Empleados (COMPLETO - CLI + GUI) 🆕
+- ✅ **Flujo completo implementado**: Siguiendo arquitectura hexagonal
+- ✅ **CRUD empleados**: Crear, buscar (por ID/nombre/identificación/con usuario/sin usuario), actualizar, eliminar
+- ✅ **CRUD cargos**: Gestión completa con validación de nombres únicos y contratos asociados
+- ✅ **CRUD contratos**: Validación de fechas, salarios, detección de vigencia y próximos a vencer
+- ✅ **DTO EmpleadoCompleto**: Combina Empleado + InfoPersonal para visualización completa
+- ✅ **Validaciones robustas**: Info personal existente, no duplicados, contratos vigentes, salarios positivos
+- ✅ **4 Repositorios JDBC**: EmpleadoRepository, CargoRepository, ContratoRepository, InfoPersonalRepository
+- ✅ **6 Use Cases**: CrearEmpleado, ActualizarEmpleado, BuscarEmpleado, EliminarEmpleado, GestionarCargo, GestionarContrato
+- ✅ **3 Services**: EmpleadoService, CargoService, ContratoService
+- ✅ **Interfaz CLI**: EmpleadoController con 9 opciones + EmpleadoApp
+- ✅ **Interfaz GUI**: EmpleadoFrame (ventana principal), EmpleadoDialog (crear/editar), CargoDialog (gestión cargos)
+- ✅ **Scripts de ejecución**: run_empleados.bat/sh (CLI), run_empleados_gui.bat/sh (GUI)
+- ✅ **Documentación completa**: FLUJO_EMPLEADOS.md con arquitectura, reglas de negocio y casos de uso
+- ✅ **Compilación exitosa**: 114 archivos fuente (24 archivos nuevos del módulo empleados)
 
 ### Base de Datos
 - ✅ **Script SQL de datos de prueba**: `database/test_data.sql` con:
@@ -56,32 +93,33 @@
 ## 🔄 En Progreso / Pendiente
 
 ### Capa de Dominio - Ports
-- ⏳ **38 Repository Interfaces pendientes** (solo 1 de 39 completada):
+- ⏳ **35 Repository Interfaces pendientes** (4 de 39 completadas: Producto, Vehiculo, MarcaVehiculo, Color):
   - ClienteRepository, ProveedorRepository, InfoPersonalRepository
   - EmpleadoRepository, ContratoRepository, UsuarioRepository
   - ServicioRepository, CategoriaRepository
-  - VehiculoRepository, MarcaVehiculoRepository
   - CotizacionRepository, PedidoRepository, BodegaRepository
   - AreaTrabajoRepository, ColaEsperaRepository
-  - Y 23 más...
+  - Y 20 más...
 
-- ⏳ **0 Use Case Interfaces creadas** (Ports IN):
-  - Necesarias para implementar las 50 queries del README.md
-  - Ejemplos: CrearProductoUseCase, BuscarClientePorIdUseCase, GenerarCotizacionUseCase
+- ⏳ **6 Use Case Interfaces de vehículos creadas, ~44 pendientes**:
+  - ✅ Vehículos: Crear, Actualizar, Buscar, Eliminar, GestionarMarca, GestionarColor
+  - ⏳ Necesarias para implementar las 50 queries del README.md
+  - Ejemplos pendientes: CrearProductoUseCase, BuscarClientePorIdUseCase, GenerarCotizacionUseCase
 
 ### Capa de Infraestructura - Adapters
-- ⏳ **38 JDBC Repository Implementations pendientes** (solo 1 de 39 completada):
-  - Seguir el patrón de JdbcProductoRepository
+- ⏳ **35 JDBC Repository Implementations pendientes** (4 de 39 completadas: Producto, Vehiculo, MarcaVehiculo, Color):
+  - Seguir el patrón de JdbcVehiculoRepository
   - Implementar PreparedStatements para cada entidad
   - Mapear ResultSets a objetos Java
 
-- ⏳ **0 Controllers creados**:
-  - Web Controllers (REST API) en `infrastructure/adapter/in/web/`
-  - CLI Controllers (interfaz línea de comandos) en `infrastructure/adapter/in/cli/`
+- ⏳ **1 Controller CLI creado (VehiculoController), ~10+ pendientes**:
+  - ✅ VehiculoController con 8 operaciones
+  - ⏳ ClienteController, EmpleadoController, ServicioController, etc.
+  - ⏳ Web Controllers (REST API) en `infrastructure/adapter/in/web/`
 
 ### Capa de Aplicación (Application Layer)
-- ⏳ **0 Services implementados**:
-  - ProductoService, ClienteService, EmpleadoService, etc.
+- ⏳ **3 Services implementados (VehiculoService, MarcaVehiculoService, ColorService), ~10+ pendientes**:
+  - ⏳ ProductoService, ClienteService, EmpleadoService, etc.
   - Deben implementar los Use Cases (Ports IN)
   - Deben usar Repositories (Ports OUT)
 
