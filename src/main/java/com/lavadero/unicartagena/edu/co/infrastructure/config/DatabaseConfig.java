@@ -27,11 +27,10 @@ public class DatabaseConfig {
         HikariConfig config = new HikariConfig();
         
         // Configuración de conexión a PostgreSQL
-        // Modificar según tu configuración local
         config.setJdbcUrl(System.getenv().getOrDefault("DB_URL", 
-            "jdbc:postgresql://localhost:5432/Lavadero_28_v2"));
-        config.setUsername(System.getenv().getOrDefault("DB_USER", "postgres"));
-        config.setPassword(System.getenv().getOrDefault("DB_PASSWORD", "postgres"));
+            "jdbc:postgresql://localhost:5432/7502420013_28_lavadero"));
+        config.setUsername(System.getenv().getOrDefault("DB_USER", "7502420013_kgomez"));
+        config.setPassword(System.getenv().getOrDefault("DB_PASSWORD", "root"));
         
         // Configuración del pool de conexiones
         config.setMaximumPoolSize(10);

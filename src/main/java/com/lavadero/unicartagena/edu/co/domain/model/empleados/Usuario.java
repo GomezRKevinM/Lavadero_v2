@@ -2,10 +2,6 @@ package com.lavadero.unicartagena.edu.co.domain.model.empleados;
 
 import java.sql.Timestamp;
 
-/**
- * Entidad Usuario - Usuarios del sistema para empleados.
- * Tabla: usuarios
- */
 public class Usuario {
     private Long id;
     private String username;
@@ -16,7 +12,6 @@ public class Usuario {
     private java.sql.Date creado;
     private Timestamp modificado;
 
-    // Constructores
     public Usuario() {
     }
 
@@ -32,7 +27,6 @@ public class Usuario {
         this.modificado = modificado;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
