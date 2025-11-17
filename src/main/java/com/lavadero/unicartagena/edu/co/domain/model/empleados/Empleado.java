@@ -2,17 +2,12 @@ package com.lavadero.unicartagena.edu.co.domain.model.empleados;
 
 import java.sql.Timestamp;
 
-/**
- * Entidad Empleado - Empleados del lavadero.
- * Tabla: empleados
- */
 public class Empleado {
     private Long id;
     private Long infoPersonalId;
     private Long usuarioId;
     private Timestamp modificado;
 
-    // Constructores
     public Empleado() {
     }
 
@@ -23,7 +18,6 @@ public class Empleado {
         this.modificado = modificado;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -54,6 +48,16 @@ public class Empleado {
 
     public void setModificado(Timestamp modificado) {
         this.modificado = modificado;
+    }
+
+    public void validar() {
+        if (infoPersonalId == null) {
+            throw new IllegalArgumentException("El empleado debe tener información personal asociada");
+        }
+    }
+
+    public boolean tieneUsuario() {
+        return usuarioId != null;
     }
 
     @Override
