@@ -339,7 +339,7 @@ Para dudas o problemas:
 
 <div align="center">
 
-**Desarrollado con ❤️ por Kevin Gómez. para Universidad de Cartagena**
+**Desarrollado con ❤️ por Kevin Gómez & Gary Castaño. para Universidad de Cartagena**
 
 [Documentación](COMO_EJECUTAR.md) • [Arquitectura](ARQUITECTURA.md) • [Estado](ESTADO_PROYECTO.md)
 
