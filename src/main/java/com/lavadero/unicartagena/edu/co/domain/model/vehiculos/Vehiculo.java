@@ -54,6 +54,46 @@ public class Vehiculo {
         this.clienteId = clienteId;
     }
 
+    /**
+     * Valida que el vehículo tenga todos los datos obligatorios.
+     * @throws IllegalArgumentException si falta algún dato obligatorio
+     */
+    public void validar() {
+        if (placa == null || placa.trim().isEmpty()) {
+            throw new IllegalArgumentException("La placa es obligatoria");
+        }
+        if (marcaId == null) {
+            throw new IllegalArgumentException("La marca es obligatoria");
+        }
+        if (clienteId == null) {
+            throw new IllegalArgumentException("El cliente es obligatorio");
+        }
+        validarFormatoPlaca();
+    }
+
+    /**
+     * Valida el formato básico de la placa.
+     * Permite letras, números y guiones, entre 5 y 10 caracteres.
+     */
+    private void validarFormatoPlaca() {
+        String placaLimpia = placa.trim().toUpperCase();
+        if (placaLimpia.length() < 5 || placaLimpia.length() > 10) {
+            throw new IllegalArgumentException("La placa debe tener entre 5 y 10 caracteres");
+        }
+        if (!placaLimpia.matches("[A-Z0-9\\-]+")) {
+            throw new IllegalArgumentException("La placa solo puede contener letras, números y guiones");
+        }
+    }
+
+    /**
+     * Normaliza la placa (mayúsculas y sin espacios).
+     */
+    public void normalizarPlaca() {
+        if (placa != null) {
+            this.placa = placa.trim().toUpperCase();
+        }
+    }
+
     @Override
     public String toString() {
         return "Vehiculo{" +

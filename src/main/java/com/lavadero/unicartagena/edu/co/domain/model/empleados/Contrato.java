@@ -2,11 +2,8 @@ package com.lavadero.unicartagena.edu.co.domain.model.empleados;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Calendar;
 
-/**
- * Entidad Contrato - Contratos laborales de empleados.
- * Tabla: contratos
- */
 public class Contrato {
     private Long id;
     private Date fechaInicio;
@@ -15,7 +12,6 @@ public class Contrato {
     private Integer cargoId;
     private Long empleadoId;
 
-    // Constructores
     public Contrato() {
     }
 
@@ -29,7 +25,6 @@ public class Contrato {
         this.empleadoId = empleadoId;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -76,6 +71,65 @@ public class Contrato {
 
     public void setEmpleadoId(Long empleadoId) {
         this.empleadoId = empleadoId;
+    }
+
+    public void validar() {
+        if (fechaInicio == null) {
+            throw new IllegalArgumentException("La fecha de inicio es obligatoria");
+        }
+        
+        if (salarioBase == null || salarioBase.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("El salario base debe ser un valor positivo");
+        }
+        
+        if (cargoId == null) {
+            throw new IllegalArgumentException("El contrato debe tener un cargo asociado");
+        }
+        
+        if (empleadoId == null) {
+            throw new IllegalArgumentException("El contrato debe estar asociado a un empleado");
+        }
+        
+        if (fechaVencimiento != null && fechaVencimiento.before(fechaInicio)) {
+            throw new IllegalArgumentException("La fecha de vencimiento debe ser posterior a la fecha de inicio");
+        }
+    }
+
+    public boolean esIndefinido() {
+        return fechaVencimiento == null;
+    }
+
+    public boolean estaVigente() {
+        Date hoy = new Date(System.currentTimeMillis());
+        
+        if (fechaInicio.after(hoy)) {
+            return false;
+        }
+        
+        if (fechaVencimiento == null) {
+            return true;
+        }
+        
+        return !fechaVencimiento.before(hoy);
+    }
+
+    public boolean proximoAVencer() {
+        if (fechaVencimiento == null) {
+            return false;
+        }
+        
+        Date hoy = new Date(System.currentTimeMillis());
+        
+        if (fechaVencimiento.before(hoy)) {
+            return false;
+        }
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(hoy);
+        cal.add(Calendar.DAY_OF_MONTH, 30);
+        Date dentroDeUnMes = new Date(cal.getTimeInMillis());
+        
+        return fechaVencimiento.before(dentroDeUnMes) || fechaVencimiento.equals(dentroDeUnMes);
     }
 
     @Override
